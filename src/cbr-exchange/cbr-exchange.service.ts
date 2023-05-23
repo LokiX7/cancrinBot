@@ -2,7 +2,7 @@ import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { firstValueFrom } from 'rxjs';
-import { CbrExchangeDto } from './dto/valute';
+import { CbrExchangeDto } from './dto/valute.dto';
 import { Repository } from 'typeorm';
 import { ValuteEntity } from 'src/entity/valute.entity';
 import { ValuteI } from './interfaces/valute.interface';
