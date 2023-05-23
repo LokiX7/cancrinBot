@@ -1,4 +1,4 @@
-export interface exchangeDto {
+export interface CbrExchangeDto {
   Date: string;
   PreviousDate: string;
   PreviousURL: string;

@@ -5,6 +5,7 @@ import { CbrExchangeModule } from 'src/cbr-exchange/cbr-exchange.module';
 import { BotService } from './bot.service';
 import { BotUpdate } from './bot.update';
 import { BotConfigService } from './bot.config-service';
+import { BotButtons } from './bot.buttons';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -14,6 +15,6 @@ import { BotConfigService } from './bot.config-service';
     }),
     CbrExchangeModule,
   ],
-  providers: [BotService, BotUpdate],
+  providers: [BotService, BotUpdate, BotButtons],
 })
 export class BotModule {}

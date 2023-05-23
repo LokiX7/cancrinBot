@@ -2,19 +2,54 @@ import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { firstValueFrom } from 'rxjs';
-import { exchangeDto } from './cbr-exchange.dto';
+import { CbrExchangeDto } from './dto/valute';
+import { Repository } from 'typeorm';
+import { ValuteEntity } from 'src/entity/valute.entity';
+import { ValuteI } from './interfaces/valute.interface';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class CbrExchangeService {
-  constructor(private readonly httpService: HttpService) {}
+  constructor(
+    @InjectRepository(ValuteEntity)
+    private readonly valutesRepository: Repository<ValuteEntity>,
+    private readonly httpService: HttpService,
+  ) {}
 
   private readonly URL = 'https://www.cbr-xml-daily.ru/daily_json.js';
-  async getExchange(): Promise<exchangeDto> {
+  async initValutesExchange(): Promise<(ValuteI & ValuteEntity)[]> {
     const response = await this.request();
-    return response.data;
+    const valutes = await this.formatter(response.data);
+    return this.valutesRepository.save(valutes);
   }
 
-  private async request(): Promise<AxiosResponse> {
-    return await firstValueFrom(this.httpService.get(this.URL));
+  async getValute(numCode: number): Promise<ValuteI> {
+    return this.valutesRepository.findOneBy({ numCode: numCode });
+  }
+
+  async getAllValutes(): Promise<ValuteI[]> {
+    return this.valutesRepository.find({});
+  }
+
+  private async request(): Promise<AxiosResponse<CbrExchangeDto>> {
+    return await firstValueFrom(this.httpService.get<CbrExchangeDto>(this.URL));
+  }
+
+  private async formatter(exchangeData: CbrExchangeDto): Promise<ValuteI[]> {
+    const rawValutesData = exchangeData.Valute;
+    const valutes: ValuteI[] = [];
+    for (const valute in rawValutesData) {
+      const rawValute = rawValutesData[valute];
+      const formatedValute: ValuteI = {
+        numCode: parseInt(rawValute.NumCode, 10),
+        charCode: rawValute.CharCode,
+        nominal: rawValute.Nominal,
+        name: rawValute.Name,
+        value: rawValute.Value,
+        previous: rawValute.Previous,
+      };
+      valutes.push(formatedValute);
+    }
+    return valutes;
   }
 }
