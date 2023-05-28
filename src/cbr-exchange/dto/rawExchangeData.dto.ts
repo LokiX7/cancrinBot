@@ -1,4 +1,4 @@
-export interface CbrExchangeDto {
+export interface RawExchangeDataDto {
   Date: string;
   PreviousDate: string;
   PreviousURL: string;

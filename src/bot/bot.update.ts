@@ -1,4 +1,4 @@
-import { Action, Ctx, Hears, Start, Update } from 'nestjs-telegraf';
+import { Action, Ctx, Hears, Message, Start, Update } from 'nestjs-telegraf';
 import { Context } from 'telegraf';
 import { BotButtons } from './bot.buttons';
 import { BotService } from './bot.service';
@@ -14,19 +14,54 @@ export class BotUpdate {
     await ctx.reply('Welcome!', this.botButtons.startKeyboard());
   }
 
+  @Hears('/help')
+  async showValutesList(@Ctx() ctx: Context) {
+    ctx.reply(await this.botService.createValuteList());
+  }
+
+  @Hears(/^\/help [A-Z][A-Z][A-Z]$/)
+  async showValuteData(@Ctx() ctx: Context, @Message('text') message: string) {
+    ctx.reply(
+      await this.botService.getValute(
+        message.match(/\/help ([A-Z][A-Z][A-Z])/)[1],
+      ),
+    );
+  }
+
+  @Hears(/^\/[A-Z][A-Z][A-Z]$/)
+  // eslint-disable-next-line prettier/prettier
+  async showValuteExchange(@Ctx() ctx: Context, @Message('text') message: string) {
+    ctx.reply(
+      await this.botService.getValuteExchange(
+        message.match(/[A-Z][A-Z][A-Z]/)[0],
+      ),
+    );
+  }
+
   @Action('availableValutes')
   async availableValutes(@Ctx() ctx: Context) {
-    const message = await this.botService.getAvailableValutes();
-    await ctx.reply(message);
+    await ctx.reply(
+      'Валюты',
+      this.botButtons.valutesKeyboard({ getExchangeOnly: true }),
+    );
   }
 
-  @Action('valuteExchange')
-  async valuteExchange(@Ctx() ctx: Context) {
-    await ctx.reply('Курс валюты');
-  }
+  @Action(/get(ValuteExchange|Valute)_[A-Z][A-Z][A-Z]/)
+  async getValuteExchange(@Ctx() ctx: Context) {
+    const data = 'data' in ctx.callbackQuery ? ctx.callbackQuery.data : null;
 
-  @Action('convertValutes')
-  async exchange(@Ctx() ctx: Context) {
-    await ctx.reply('Конвертирование');
+    if (data) {
+      const queryMatch = data.match(
+        /get(ValuteExchange|Valute)_([A-Z][A-Z][A-Z])/,
+      );
+
+      switch (queryMatch[1]) {
+        case 'Valute':
+          ctx.reply(await this.botService.getValute(queryMatch[2]));
+          break;
+        case 'ValuteExchange':
+          ctx.reply(await this.botService.getValuteExchange(queryMatch[2]));
+      }
+    }
   }
 }

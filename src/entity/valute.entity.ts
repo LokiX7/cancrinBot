@@ -4,14 +4,14 @@ import { Column, Entity, PrimaryColumn } from 'typeorm';
 export class ValuteEntity {
   @PrimaryColumn()
   numCode: number;
-  @Column()
+  @Column({ unique: true })
   charCode: string;
   @Column()
   nominal: number;
   @Column()
   name: string;
-  @Column()
+  @Column('numeric', { scale: 2 })
   value: number;
-  @Column()
+  @Column('numeric', { scale: 2 })
   previous: number;
 }
