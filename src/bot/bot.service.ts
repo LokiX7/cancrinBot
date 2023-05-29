@@ -30,4 +30,17 @@ export class BotService {
     );
     return `${valuteData.name} - ${valuteData.value.toFixed(2)} руб`;
   }
+
+  getLastUpdateDate(): {
+    day: number;
+    month: number;
+    year: number;
+  } {
+    const date = new Date(this.cbrExchangeService.exchangeData.date);
+    return {
+      day: date.getDate(),
+      month: date.getMonth() + 1,
+      year: date.getFullYear(),
+    };
+  }
 }

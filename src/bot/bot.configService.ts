@@ -8,7 +8,7 @@ export class BotConfigService implements TelegrafOptionsFactory {
   createTelegrafOptions(): TelegrafModuleOptions {
     return {
       token: this.configService.get<string>('BOT_TOKEN'),
-      botName: this.configService.get<string>('BOT_NAME'),
+      botName: 'Cancrin',
     };
   }
 }
