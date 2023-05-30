@@ -11,8 +11,11 @@ import { Context, Telegraf } from 'telegraf';
 import { BotButtons } from './bot.buttons';
 import { BotService } from './bot.service';
 import { botCommands } from './bot.commands';
+import { UseInterceptors } from '@nestjs/common';
+import { UpdateLogInterceptor } from './interceptors/update-log-interceptor';
 
 @Update()
+@UseInterceptors(UpdateLogInterceptor)
 export class BotUpdate {
   constructor(
     @InjectBot()
