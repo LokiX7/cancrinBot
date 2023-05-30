@@ -3,7 +3,7 @@ import { HttpModule } from '@nestjs/axios';
 import { CbrExchangeService } from './cbr-exchange.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ValuteEntity } from 'src/entity/valute.entity';
-import { CbrExchangeApiReq } from './cbr-exchange.apiReq';
+import { CbrExchangeApiReq } from './cbr-exchange.api';
 import { CbrExchangeUtills } from './cbr.exchange.utills';
 
 @Module({

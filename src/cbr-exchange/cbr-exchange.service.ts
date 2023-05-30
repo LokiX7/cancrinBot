@@ -4,7 +4,7 @@ import { ValuteEntity } from 'src/entity/valute.entity';
 import { ValuteI } from './interfaces/valute.interface';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ExchangeDataI } from './interfaces/exchangeData.interface';
-import { CbrExchangeApiReq } from './cbr-exchange.apiReq';
+import { CbrExchangeApiReq } from './cbr-exchange.api';
 import { CbrExchangeUtills } from './cbr.exchange.utills';
 
 @Injectable()
