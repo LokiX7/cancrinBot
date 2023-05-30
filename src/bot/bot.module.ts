@@ -4,7 +4,7 @@ import { TelegrafModule } from 'nestjs-telegraf';
 import { CbrExchangeModule } from 'src/cbr-exchange/cbr-exchange.module';
 import { BotService } from './bot.service';
 import { BotUpdate } from './bot.update';
-import { BotConfigService } from './bot.configService';
+import { BotConfigService } from './bot.config-service';
 import { BotButtons } from './bot.buttons';
 @Module({
   imports: [
