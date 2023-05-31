@@ -12,15 +12,11 @@ export class BotButtons {
     ]);
   }
 
-  valutesKeyboard(opts: { getExchangeOnly?: boolean }) {
+  valutesKeyboard() {
     const buttons: InlineKeyboardButton.CallbackButton[] = [];
-    const actionType: 'getValuteExchange' | 'getValute' = opts.getExchangeOnly
-      ? 'getValuteExchange'
-      : 'getValute';
-
     for (const charCode in this.cbrExchangeService.exchangeData.valute) {
       buttons.push(
-        Markup.button.callback(`${charCode}`, `${actionType}_${charCode}`),
+        Markup.button.callback(`${charCode}`, `getValuteExchange_${charCode}`),
       );
     }
 

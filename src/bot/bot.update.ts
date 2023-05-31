@@ -11,8 +11,10 @@ import { Context, Telegraf } from 'telegraf';
 import { BotButtons } from './bot.buttons';
 import { BotService } from './bot.service';
 import { botCommands } from './bot.commands';
-import { UseInterceptors } from '@nestjs/common';
+import { UseFilters, UseInterceptors } from '@nestjs/common';
 import { UpdateLogInterceptor } from './interceptors/update-log-interceptor';
+import { CanDeleteMessage } from './guards/can-delete-message.guard';
+import { CharCodeExceptionFilter } from './filters/char-code-exception.filter';
 
 @Update()
 @UseInterceptors(UpdateLogInterceptor)
@@ -25,11 +27,16 @@ export class BotUpdate {
   ) {
     this.bot.telegram.setMyCommands(botCommands);
   }
-  @Start()
-  async start(@Ctx() ctx: Context) {
-    if (ctx.message?.message_id) {
+
+  private async deleteMessage(ctx: Context): Promise<void> {
+    if (CanDeleteMessage(ctx)) {
       await ctx.deleteMessage(ctx.message.message_id);
     }
+  }
+
+  @Start()
+  async start(@Ctx() ctx: Context) {
+    this.deleteMessage(ctx);
     await ctx.reply(
       'Здравствуйте! Я CancrinBot помогу вам узнать актуальный курс от центрального банка России',
       this.botButtons.startKeyboard(),
@@ -38,9 +45,7 @@ export class BotUpdate {
 
   @Hears('/help')
   async showHelpMessage(@Ctx() ctx: Context) {
-    if (ctx.message?.message_id) {
-      await ctx.deleteMessage(ctx.message.message_id);
-    }
+    this.deleteMessage(ctx);
     await ctx.reply(
       'Чтобы получить информацию об обмене интересующей вас валюты вы можете выбрать её в меню /valutes или просто написав её код в чат например EUR',
     );
@@ -52,48 +57,39 @@ export class BotUpdate {
 
   @Hears('/list')
   async showValutesList(@Ctx() ctx: Context) {
-    if (ctx.message?.message_id) {
-      await ctx.deleteMessage(ctx.message.message_id);
-    }
+    this.deleteMessage(ctx);
+
     await ctx.reply(await this.botService.createValuteList());
   }
 
   @Hears(/^\/help ([A-Z][A-Z][A-Z]|[a-z][a-z][a-z])$/)
+  @UseFilters(CharCodeExceptionFilter)
   async showValuteData(@Ctx() ctx: Context, @Message('text') message: string) {
-    if (ctx.message?.message_id) {
-      await ctx.deleteMessage(ctx.message.message_id);
-    }
-    await ctx.reply(
-      await this.botService.getValute(
-        message
-          .match(/\/help ([A-Z][A-Z][A-Z]|[a-z][a-z][a-z])/)[1]
-          .toUpperCase(),
-      ),
-    );
+    const charCode = message
+      .match(/\/help ([A-Z][A-Z][A-Z]|[a-z][a-z][a-z])/)[1]
+      .toUpperCase();
+    await ctx.reply(await this.botService.getValute(charCode));
   }
 
   @Hears(/^([A-Z][A-Z][A-Z]|[a-z][a-z][a-z])$/)
+  @UseFilters(CharCodeExceptionFilter)
   // eslint-disable-next-line prettier/prettier
   async showValuteExchange(@Ctx() ctx: Context, @Message('text') message: string) {
-    if (ctx.message?.message_id) {
-      await ctx.deleteMessage(ctx.message.message_id);
-    }
-    await ctx.reply(
-      await this.botService.getValuteExchange(
-        message.match(/([A-Z][A-Z][A-Z]|[a-z][a-z][a-z])/)[0].toUpperCase(),
-      ),
-    );
+    const charCode = message
+      .match(/([A-Z][A-Z][A-Z]|[a-z][a-z][a-z])/)[0]
+      .toUpperCase();
+
+    await ctx.reply(await this.botService.getValuteExchange(charCode));
   }
 
   @Hears(/^\/valutes/)
   async showAvailableValutes(@Ctx() ctx: Context) {
+    this.deleteMessage(ctx);
     const date = this.botService.getLastUpdateDate();
-    if (ctx.message?.message_id) {
-      await ctx.deleteMessage(ctx.message.message_id);
-    }
+
     await ctx.reply(
       `Данные от ${date.day}.${date.month}.${date.year}`,
-      this.botButtons.valutesKeyboard({ getExchangeOnly: true }),
+      this.botButtons.valutesKeyboard(),
     );
   }
 
@@ -102,23 +98,14 @@ export class BotUpdate {
     await this.showAvailableValutes(ctx);
   }
 
-  @Action(/get(ValuteExchange|Valute)_[A-Z][A-Z][A-Z]/)
+  @Action(/getValuteExchange_[A-Z][A-Z][A-Z]/)
   async getValuteExchange(@Ctx() ctx: Context) {
     const data = 'data' in ctx.callbackQuery ? ctx.callbackQuery.data : null;
 
     if (data) {
-      const queryMatch = data.match(
-        /get(ValuteExchange|Valute)_([A-Z][A-Z][A-Z])/,
-      );
+      const queryMatch = data.match(/getValuteExchange_([A-Z][A-Z][A-Z])/);
 
-      switch (queryMatch[1]) {
-        case 'Valute':
-          await ctx.reply(await this.botService.getValute(queryMatch[2]));
-          break;
-        case 'ValuteExchange':
-          // eslint-disable-next-line prettier/prettier
-          await ctx.reply(await this.botService.getValuteExchange(queryMatch[2]));
-      }
+      await ctx.reply(await this.botService.getValuteExchange(queryMatch[1]));
     }
   }
 }

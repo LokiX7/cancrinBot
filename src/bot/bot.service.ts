@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CbrExchangeService } from 'src/cbr-exchange/cbr-exchange.service';
+import { charCodeValidation } from './validators/char-code.validator';
 
 @Injectable()
 export class BotService {
@@ -18,6 +19,8 @@ export class BotService {
     return message;
   }
   async getValute(charCode: string): Promise<string> {
+    charCodeValidation(charCode, this.cbrExchangeService.exchangeData);
+
     const valuteData = await this.cbrExchangeService.getValuteByCharCode(
       charCode,
     );
@@ -25,6 +28,8 @@ export class BotService {
   }
   // eslint-disable-next-line prettier/prettier
   async getValuteExchange(charCode: string | undefined): Promise<string> {
+    charCodeValidation(charCode, this.cbrExchangeService.exchangeData);
+
     const valuteData = await this.cbrExchangeService.getValuteByCharCode(
       charCode,
     );

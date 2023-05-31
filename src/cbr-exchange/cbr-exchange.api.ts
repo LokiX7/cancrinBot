@@ -7,9 +7,9 @@ import { firstValueFrom } from 'rxjs';
 const URL = 'https://www.cbr-xml-daily.ru/daily_json.js';
 
 @Injectable()
-export class CbrExchangeApiReq {
+export class CbrExchangeApi {
   private readonly URL: string;
-  private logger = new Logger(CbrExchangeApiReq.name);
+  private logger = new Logger(CbrExchangeApi.name);
   constructor(private readonly httpService: HttpService) {
     this.URL = URL;
   }
