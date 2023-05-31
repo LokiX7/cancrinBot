@@ -1,6 +1,6 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable, Logger } from '@nestjs/common';
-import { RawExchangeDataDto } from './dto/rawExchangeData.dto';
+import { RawExchangeDataDto } from './dto/raw-exchange-data.dto';
 import { AxiosResponse } from 'axios';
 import { firstValueFrom } from 'rxjs';
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ExchangeDataI } from '../common/interfaces/exchangeData.interface';
-import { RawExchangeDataDto } from './dto/rawExchangeData.dto';
+import { RawExchangeDataDto } from './dto/raw-exchange-data.dto';
 import { ValuteI } from '../common/interfaces/valute.interface';
 
 @Injectable()
