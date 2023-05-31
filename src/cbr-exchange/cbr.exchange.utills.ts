@@ -15,7 +15,7 @@ export class CbrExchangeUtills {
     for (const valute in rawValutes) {
       const rawValute = rawValutes[valute];
       const formatedValute: ValuteI = {
-        numCode: parseInt(rawValute.NumCode, 10),
+        numCode: rawValute.NumCode,
         charCode: rawValute.CharCode,
         nominal: rawValute.Nominal,
         name: rawValute.Name,

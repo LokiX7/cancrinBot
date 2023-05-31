@@ -68,7 +68,7 @@ export class BotUpdate {
     const charCode = message
       .match(/\/help ([A-Z][A-Z][A-Z]|[a-z][a-z][a-z])/)[1]
       .toUpperCase();
-    await ctx.reply(await this.botService.getValute(charCode));
+    await ctx.replyWithHTML(await this.botService.getValute(charCode));
   }
 
   @Hears(/^([A-Z][A-Z][A-Z]|[a-z][a-z][a-z])$/)

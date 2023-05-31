@@ -1,5 +1,5 @@
 export interface ValuteI {
-  numCode: number;
+  numCode: string;
   charCode: string;
   nominal: number;
   name: string;

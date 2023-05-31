@@ -24,7 +24,13 @@ export class BotService {
     const valuteData = await this.cbrExchangeService.getValuteByCharCode(
       charCode,
     );
-    return `${valuteData.name}\n${valuteData.charCode}\n${valuteData.nominal}\n${valuteData.value}`;
+    return (
+      `${valuteData.name}` +
+      `\n- <b>Буквенный код</b>: ${valuteData.charCode}` +
+      `\n- <b>Цифровой код</b>: ${valuteData.numCode}` +
+      `\n- <b>Номинал</b>: ${valuteData.nominal}` +
+      `\n- <b>Обменный курс</b>: ${valuteData.value}`
+    );
   }
   // eslint-disable-next-line prettier/prettier
   async getValuteExchange(charCode: string | undefined): Promise<string> {

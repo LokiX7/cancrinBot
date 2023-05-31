@@ -3,9 +3,9 @@ import { Column, Entity, PrimaryColumn } from 'typeorm';
 @Entity({ name: 'Valute' })
 export class ValuteEntity {
   @PrimaryColumn()
-  numCode: number;
-  @Column({ unique: true })
   charCode: string;
+  @Column({ unique: true })
+  numCode: string;
   @Column()
   nominal: number;
   @Column()
