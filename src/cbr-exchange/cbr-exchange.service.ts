@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ExchangeDataI } from '../common/interfaces/exchangeData.interface';
 import { CbrExchangeApi } from './cbr-exchange.api';
 import { CbrExchangeUtills } from './cbr.exchange.utills';
+import { Cron, CronExpression } from '@nestjs/schedule';
 
 @Injectable()
 export class CbrExchangeService {
@@ -17,6 +18,7 @@ export class CbrExchangeService {
     private readonly utills: CbrExchangeUtills,
   ) {}
 
+  @Cron(CronExpression.MONDAY_TO_FRIDAY_AT_1AM, { timeZone: 'Europe/Moscow' })
   async initExchangeData(): Promise<(ValuteI & ValuteEntity)[]> {
     const response = await this.apiReq.request();
     this.exchangeData = this.utills.formatter(response.data);

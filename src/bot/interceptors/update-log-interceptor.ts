@@ -9,6 +9,7 @@ import { TelegrafExecutionContext } from 'nestjs-telegraf';
 import { Observable } from 'rxjs';
 import { Context } from 'telegraf';
 import { isAction } from '../guards/is-action.guard';
+
 @Injectable()
 export class UpdateLogInterceptor implements NestInterceptor {
   private readonly logger: Logger = new Logger('Update');
@@ -21,10 +22,10 @@ export class UpdateLogInterceptor implements NestInterceptor {
     const TgCtx = TelegrafExecutionContext.create(context).getContext<Context>();
     if (isAction(TgCtx)) {
       // eslint-disable-next-line prettier/prettier
-      this.logger.log(`ID ${TgCtx.callbackQuery.from.id} -> [Action] ${TgCtx.callbackQuery['data']}`);
+      this.logger.debug(`UserID ${TgCtx.callbackQuery.from.id} -> [Action] ${TgCtx.callbackQuery['data']}`);
     } else {
       // eslint-disable-next-line prettier/prettier
-      this.logger.log(`ID ${TgCtx.message.from.id} -> [${TgCtx.message['text']}] ${context.getHandler().name} `);
+      this.logger.debug(`UserID ${TgCtx.message.from.id} -> [${TgCtx.message['text']}] ${context.getHandler().name} `);
     }
     return next.handle();
   }
