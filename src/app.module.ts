@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ValuteEntity } from './common/entity/valute.entity';
 import { AppService } from './app.service';
 import { BotModule } from './bot/bot.module';
+import { UnexpectedExceptionsFilter } from './common/filters/unexpected-exceptions.filter';
 
 @Module({
   imports: [
@@ -14,6 +15,12 @@ import { BotModule } from './bot/bot.module';
       synchronize: true,
     }),
   ],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: 'APP_FILTER',
+      useClass: UnexpectedExceptionsFilter,
+    },
+  ],
 })
 export class AppModule {}
