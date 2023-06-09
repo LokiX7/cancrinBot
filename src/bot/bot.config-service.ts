@@ -5,6 +5,7 @@ import { TelegrafModuleOptions, TelegrafOptionsFactory } from 'nestjs-telegraf';
 @Injectable()
 export class BotConfigService implements TelegrafOptionsFactory {
   constructor(private configService: ConfigService) {}
+
   createTelegrafOptions(): TelegrafModuleOptions {
     return {
       token: this.configService.get<string>('BOT_TOKEN'),

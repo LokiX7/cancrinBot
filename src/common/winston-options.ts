@@ -10,18 +10,21 @@ export const winstonOptions = {
         winston.format.simple(),
       ),
     }),
+
     new winston.transports.File({
       filename: 'error.log',
       dirname: 'logs',
       level: 'error',
       format: winston.format.json(),
     }),
+
     new winston.transports.File({
       filename: 'info.log',
       dirname: 'logs',
       level: 'info',
       format: winston.format.json(),
     }),
+
     new winston.transports.File({
       filename: 'combined.log',
       dirname: 'logs',

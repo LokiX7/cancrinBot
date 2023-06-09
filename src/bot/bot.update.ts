@@ -46,6 +46,7 @@ export class BotUpdate {
   @Hears('/help')
   async showHelpMessage(@Ctx() ctx: Context): Promise<void> {
     this.deleteMessage(ctx);
+
     await ctx.reply(
       'Чтобы получить информацию об обмене интересующей вас валюты вы можете выбрать её в меню /valutes или просто написав её код в чат например EUR',
     );
@@ -69,6 +70,7 @@ export class BotUpdate {
     const charCode = message
       .match(/\/help ([A-Z][A-Z][A-Z]|[a-z][a-z][a-z])/)[1]
       .toUpperCase();
+
     await ctx.replyWithHTML(await this.botService.getValute(charCode));
   }
 

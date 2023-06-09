@@ -9,14 +9,17 @@ export class BotService {
 
   async createValuteList(): Promise<string> {
     const valutes = await this.cbrExchangeService.getAllValutes();
+
     let count = 0;
     let message = '';
+
     for (const valute of valutes) {
       count++;
       message = message.concat(
         `${count}. ${valute.charCode} - ${valute.name}\n`,
       );
     }
+
     return message;
   }
   async getValute(charCode: string): Promise<string> {
@@ -25,6 +28,7 @@ export class BotService {
     const valuteData = await this.cbrExchangeService.getValuteByCharCode(
       charCode,
     );
+
     return (
       `${valuteData.name}` +
       `\n- <b>Буквенный код</b>: ${valuteData.charCode}` +
@@ -40,6 +44,7 @@ export class BotService {
     const valuteData = await this.cbrExchangeService.getValuteByCharCode(
       charCode,
     );
+
     return `${valuteData.name} - ${valuteData.value.toFixed(2)} руб`;
   }
 

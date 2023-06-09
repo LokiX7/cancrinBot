@@ -14,6 +14,7 @@ export class BotButtons {
 
   valutesKeyboard() {
     const buttons: InlineKeyboardButton.CallbackButton[] = [];
+
     for (const charCode in this.cbrExchangeService.exchangeData.valute) {
       buttons.push(
         Markup.button.callback(`${charCode}`, `getValuteExchange_${charCode}`),

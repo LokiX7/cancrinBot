@@ -20,6 +20,7 @@ export class UpdateLogInterceptor implements NestInterceptor {
   ): Observable<any> | Promise<Observable<any>> {
     // eslint-disable-next-line prettier/prettier
     const TgCtx = TelegrafExecutionContext.create(context).getContext<Context>();
+
     if (isAction(TgCtx)) {
       // eslint-disable-next-line prettier/prettier
       this.logger.debug(`UserID ${TgCtx.callbackQuery.from.id} -> [Action] ${TgCtx.callbackQuery['data']}`);
@@ -27,6 +28,7 @@ export class UpdateLogInterceptor implements NestInterceptor {
       // eslint-disable-next-line prettier/prettier
       this.logger.debug(`UserID ${TgCtx.message.from.id} -> [${TgCtx.message['text']}] ${context.getHandler().name} `);
     }
+
     return next.handle();
   }
 }

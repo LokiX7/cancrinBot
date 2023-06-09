@@ -10,12 +10,14 @@ const URL = 'https://www.cbr-xml-daily.ru/daily_json.js';
 export class CbrExchangeApi {
   private readonly URL: string;
   private logger = new Logger(CbrExchangeApi.name);
+
   constructor(private readonly httpService: HttpService) {
     this.URL = URL;
   }
 
   public async request(): Promise<AxiosResponse<RawExchangeDataDto>> {
     this.logger.log(`Request - ${URL}`);
+
     return await firstValueFrom(
       this.httpService.get<RawExchangeDataDto>(this.URL),
     ).finally(() => this.logger.log('Request success'));

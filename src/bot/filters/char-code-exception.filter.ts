@@ -10,9 +10,11 @@ export class CharCodeExceptionFilter implements ExceptionFilter {
   // eslint-disable-next-line prettier/prettier
   async catch(exception: CharCodeException, host: ArgumentsHost): Promise<void> {
     const tgCtx = TelegrafArgumentsHost.create(host).getContext<Context>();
+
     this.logger.warn(
       `UserID ${tgCtx.message.from.id} -> "${exception.charCode}"`,
     );
+
     await tgCtx.reply(`${exception.charCode} не код валюты.`);
   }
 }

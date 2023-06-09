@@ -15,6 +15,7 @@ import { AppService } from './app.service';
       synchronize: true,
     }),
   ],
+
   providers: [
     AppService,
     {
