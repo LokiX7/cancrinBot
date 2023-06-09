@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { ExchangeDataI } from '../common/interfaces/exchangeData.interface';
+import { ExchangeDataI } from 'src/common/interfaces/exchangeData.interface';
+import { ValuteI } from 'src/common/interfaces/valute.interface';
 import { RawExchangeDataDto } from './dto/raw-exchange-data.dto';
-import { ValuteI } from '../common/interfaces/valute.interface';
 
 @Injectable()
 export class CbrExchangeUtills {

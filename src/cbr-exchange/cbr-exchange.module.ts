@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
-import { CbrExchangeService } from './cbr-exchange.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ScheduleModule } from '@nestjs/schedule';
 import { ValuteEntity } from 'src/common/entity/valute.entity';
+import { CbrExchangeService } from './cbr-exchange.service';
 import { CbrExchangeApi } from './cbr-exchange.api';
 import { CbrExchangeUtills } from './cbr.exchange.utills';
-import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [

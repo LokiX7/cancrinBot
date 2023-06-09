@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { WinstonModule } from 'nest-winston';
+import { winstonOptions } from './common/winston-options';
 import { CbrExchangeModule } from './cbr-exchange/cbr-exchange.module';
 import { CbrExchangeService } from './cbr-exchange/cbr-exchange.service';
-import { winstonOptions } from './common/winston-options';
 import { AppModule } from './app.module';
 
 async function bootstrap() {

@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import { Repository } from 'typeorm';
 import { ValuteEntity } from 'src/common/entity/valute.entity';
-import { ValuteI } from '../common/interfaces/valute.interface';
-import { InjectRepository } from '@nestjs/typeorm';
-import { ExchangeDataI } from '../common/interfaces/exchangeData.interface';
+import { ValuteI } from 'src/common/interfaces/valute.interface';
+import { ExchangeDataI } from 'src/common/interfaces/exchangeData.interface';
 import { CbrExchangeApi } from './cbr-exchange.api';
 import { CbrExchangeUtills } from './cbr.exchange.utills';
-import { Cron, CronExpression } from '@nestjs/schedule';
 
 @Injectable()
 export class CbrExchangeService {

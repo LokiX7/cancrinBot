@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CbrExchangeService } from 'src/cbr-exchange/cbr-exchange.service';
 import { charCodeValidation } from './validators/char-code.validator';
+import { CbrExchangeService } from 'src/cbr-exchange/cbr-exchange.service';
 
 @Injectable()
 export class BotService {

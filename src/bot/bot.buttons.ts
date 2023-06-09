@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { CbrExchangeService } from 'src/cbr-exchange/cbr-exchange.service';
 import { Markup } from 'telegraf';
 import { InlineKeyboardButton } from 'telegraf/typings/core/types/typegram';
+import { CbrExchangeService } from 'src/cbr-exchange/cbr-exchange.service';
 
 @Injectable()
 export class BotButtons {

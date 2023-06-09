@@ -1,8 +1,8 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable, Logger } from '@nestjs/common';
-import { RawExchangeDataDto } from './dto/raw-exchange-data.dto';
 import { AxiosResponse } from 'axios';
 import { firstValueFrom } from 'rxjs';
+import { RawExchangeDataDto } from './dto/raw-exchange-data.dto';
 
 const URL = 'https://www.cbr-xml-daily.ru/daily_json.js';
 

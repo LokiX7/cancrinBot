@@ -6,8 +6,8 @@ import {
   NestInterceptor,
 } from '@nestjs/common';
 import { TelegrafExecutionContext } from 'nestjs-telegraf';
-import { Observable } from 'rxjs';
 import { Context } from 'telegraf';
+import { Observable } from 'rxjs';
 import { isAction } from '../guards/is-action.guard';
 
 @Injectable()
