@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { charCodeValidation } from './validators/char-code.validator';
 import { CbrExchangeService } from 'src/cbr-exchange/cbr-exchange.service';
+import { ExchangeDataI } from 'src/common/interfaces/exchangeData.interface';
 
 @Injectable()
 export class BotService {
@@ -42,16 +43,7 @@ export class BotService {
     return `${valuteData.name} - ${valuteData.value.toFixed(2)} руб`;
   }
 
-  getLastUpdateDate(): {
-    day: number;
-    month: number;
-    year: number;
-  } {
-    const date = new Date(this.cbrExchangeService.exchangeData.date);
-    return {
-      day: date.getDate(),
-      month: date.getMonth() + 1,
-      year: date.getFullYear(),
-    };
+  getLastUpdateDate(): ExchangeDataI['date'] {
+    return this.cbrExchangeService.exchangeData.date;
   }
 }

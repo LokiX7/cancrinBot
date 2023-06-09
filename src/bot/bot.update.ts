@@ -89,7 +89,7 @@ export class BotUpdate {
     const date = this.botService.getLastUpdateDate();
 
     await ctx.reply(
-      `Данные от ${date.day}.${date.month}.${date.year}`,
+      `Данные на ${date.day}.${date.month}.${date.year}`,
       this.botButtons.valutesKeyboard(),
     );
   }
