@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { CbrExchangeService } from '../cbr-exchange/cbr-exchange.service';
 import { BotService } from './bot.service';
 
 describe('BotService', () => {
@@ -6,7 +7,13 @@ describe('BotService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [BotService],
+      providers: [
+        BotService,
+        {
+          provide: CbrExchangeService,
+          useValue: {},
+        },
+      ],
     }).compile();
 
     service = module.get<BotService>(BotService);
