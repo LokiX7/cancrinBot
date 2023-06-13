@@ -33,7 +33,7 @@ describe('CbrExchangeApi', () => {
         {
           provide: HttpService,
           useValue: {
-            get: jest.fn((url: string) => of(fakeResponse)),
+            get: jest.fn(() => of(fakeResponse)),
           },
         },
       ],
