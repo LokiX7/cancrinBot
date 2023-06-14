@@ -15,7 +15,7 @@ import { CharCodeExceptionFilter } from './filters/char-code-exception.filter';
 import { BotButtons } from './bot.buttons';
 import { BotService } from './bot.service';
 import { botCommands } from './bot.commands';
-import { MessageCreater } from './bot.message-creater';
+import { MessageCreater } from './uttils/bot.message-creater';
 
 @Update()
 @UseInterceptors(UpdateLogInterceptor)

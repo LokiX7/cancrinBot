@@ -5,8 +5,8 @@ import { Repository } from 'typeorm';
 import { ValuteEntity } from 'src/common/entity/valute.entity';
 import { ValuteI } from 'src/common/interfaces/valute.interface';
 import { ExchangeDataI } from 'src/common/interfaces/exchangeData.interface';
-import { CbrExchangeApi } from './cbr-exchange.api';
 import { ExchangeDataFormatter } from './utills/exchange-data.formatter';
+import { CbrExchangeApi } from './cbr-exchange.api';
 
 @Injectable()
 export class CbrExchangeService {
@@ -16,14 +16,13 @@ export class CbrExchangeService {
     @InjectRepository(ValuteEntity)
     private readonly valutesRepository: Repository<ValuteEntity>,
     private readonly apiReq: CbrExchangeApi,
-    private readonly formatter: ExchangeDataFormatter,
   ) {}
 
   @Cron(CronExpression.MONDAY_TO_FRIDAY_AT_1AM, { timeZone: 'Europe/Moscow' })
   async initExchangeData(): Promise<(ValuteI & ValuteEntity)[]> {
     const response = await this.apiReq.request();
 
-    this.exchangeData = this.formatter.format(response.data);
+    this.exchangeData = ExchangeDataFormatter.format(response.data);
 
     const valutesArr: ValuteI[] = [];
 

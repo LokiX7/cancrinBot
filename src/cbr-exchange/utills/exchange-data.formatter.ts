@@ -1,11 +1,9 @@
-import { Injectable } from '@nestjs/common';
 import { ExchangeDataI } from 'src/common/interfaces/exchangeData.interface';
 import { ValuteI } from 'src/common/interfaces/valute.interface';
 import { RawExchangeDataDto } from '../dto/raw-exchange-data.dto';
 
-@Injectable()
 export class ExchangeDataFormatter {
-  public format(rawExchangeData: RawExchangeDataDto): ExchangeDataI {
+  public static format(rawExchangeData: RawExchangeDataDto): ExchangeDataI {
     const { Valute: rawValutes, Date: rawDate } = rawExchangeData;
     const formatedExchangeData: ExchangeDataI = {
       date: {
@@ -23,7 +21,7 @@ export class ExchangeDataFormatter {
   }
 
   // eslint-disable-next-line prettier/prettier
-  private valutesFromatter(rawValutes: RawExchangeDataDto['Valute']): ExchangeDataI['valute'] {
+  private static valutesFromatter(rawValutes: RawExchangeDataDto['Valute']): ExchangeDataI['valute'] {
     const valutes: ExchangeDataI['valute'] = {};
 
     for (const valute in rawValutes) {
@@ -43,7 +41,7 @@ export class ExchangeDataFormatter {
   }
 
   // eslint-disable-next-line prettier/prettier
-  private dateFormatter(rawDate: RawExchangeDataDto['Date']): ExchangeDataI['date'] {
+  private static dateFormatter(rawDate: RawExchangeDataDto['Date']): ExchangeDataI['date'] {
     const dateInstance = new Date(Date.parse(rawDate));
 
     const rawDay = dateInstance.getDate();

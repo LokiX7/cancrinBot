@@ -1,4 +1,4 @@
-import { ValuteI } from '../common/interfaces/valute.interface';
+import { ValuteI } from '../../common/interfaces/valute.interface';
 
 export class MessageCreater {
   static createValuteFullDataString(valuteData: ValuteI): string {
