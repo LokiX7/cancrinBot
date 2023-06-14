@@ -15,6 +15,7 @@ import { CharCodeExceptionFilter } from './filters/char-code-exception.filter';
 import { BotButtons } from './bot.buttons';
 import { BotService } from './bot.service';
 import { botCommands } from './bot.commands';
+import { MessageCreater } from './bot.message-creater';
 
 @Update()
 @UseInterceptors(UpdateLogInterceptor)
@@ -60,7 +61,8 @@ export class BotUpdate {
   async showValutesList(@Ctx() ctx: Context): Promise<void> {
     this.deleteMessage(ctx);
 
-    await ctx.reply(await this.botService.createValuteList());
+    const valutes = await this.botService.getValutes();
+    await ctx.reply(MessageCreater.createValutesListString(valutes));
   }
 
   @Hears(/^\/help ([A-Z][A-Z][A-Z]|[a-z][a-z][a-z])$/)
@@ -71,7 +73,8 @@ export class BotUpdate {
       .match(/\/help ([A-Z][A-Z][A-Z]|[a-z][a-z][a-z])/)[1]
       .toUpperCase();
 
-    await ctx.replyWithHTML(await this.botService.getValute(charCode));
+    const valute = await this.botService.getValute(charCode);
+    await ctx.replyWithHTML(MessageCreater.createValuteFullDataString(valute));
   }
 
   @Hears(/^([A-Z][A-Z][A-Z]|[a-z][a-z][a-z])$/)
@@ -82,7 +85,8 @@ export class BotUpdate {
       .match(/([A-Z][A-Z][A-Z]|[a-z][a-z][a-z])/)[0]
       .toUpperCase();
 
-    await ctx.reply(await this.botService.getValuteExchange(charCode));
+    const valute = await this.botService.getValute(charCode);
+    await ctx.reply(MessageCreater.createValuteExchangeDataString(valute));
   }
 
   @Hears(/^\/valutes/)
@@ -108,7 +112,8 @@ export class BotUpdate {
     if (data) {
       const queryMatch = data.match(/getValuteExchange_([A-Z][A-Z][A-Z])/);
 
-      await ctx.reply(await this.botService.getValuteExchange(queryMatch[1]));
+      const valute = await this.botService.getValute(queryMatch[1]);
+      await ctx.reply(MessageCreater.createValuteExchangeDataString(valute));
     }
   }
 }

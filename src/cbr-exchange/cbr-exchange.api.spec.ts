@@ -46,7 +46,7 @@ describe('CbrExchangeApi', () => {
     expect(api).toBeDefined();
   });
 
-  it('should return exchange data', async () => {
+  test('request method should return exchange data', async () => {
     const response = await api.request();
     expect(response).toEqual(fakeResponse);
   });
