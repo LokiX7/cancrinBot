@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { Repository } from 'typeorm';
-import { ValuteEntity } from 'src/common/entity/valute.entity';
+import { ValuteEntity } from 'src/common/entitys/valute.entity';
 import { ValuteI } from 'src/common/interfaces/valute.interface';
 import { ExchangeDataI } from 'src/common/interfaces/exchangeData.interface';
 import { ExchangeDataFormatter } from './utills/exchange-data.formatter';

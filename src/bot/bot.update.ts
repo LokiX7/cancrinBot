@@ -89,7 +89,7 @@ export class BotUpdate {
     await ctx.reply(MessageCreater.createValuteExchangeDataString(valute));
   }
 
-  @Hears(/^\/valutes/)
+  @Hears('/valutes')
   async showAvailableValutes(@Ctx() ctx: Context): Promise<void> {
     this.deleteMessage(ctx);
     const date = this.botService.getLastUpdateDate();
