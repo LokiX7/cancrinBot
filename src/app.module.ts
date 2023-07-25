@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ValuteEntity } from './common/entitys/valute.entity';
+import { ValuteEntity } from './common/entities/valute.entity';
 import { UnexpectedExceptionsFilter } from './common/filters/unexpected-exceptions.filter';
 import { BotModule } from './bot/bot.module';
 import { AppService } from './app.service';

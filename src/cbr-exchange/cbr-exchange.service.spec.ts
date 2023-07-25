@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { ValuteI } from '../common/interfaces/valute.interface';
-import { ValuteEntity } from '../common/entitys/valute.entity';
+import { ValuteEntity } from '../common/entities/valute.entity';
 import { ValuteStub } from '../common/test-uttils/valute.stub';
 import { CbrExchangeApi } from './cbr-exchange.api';
 import { CbrExchangeService } from './cbr-exchange.service';
