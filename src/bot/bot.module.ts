@@ -8,7 +8,6 @@ import { BotConfigService } from './bot.config-service';
 import { BotButtons } from './bot.buttons';
 @Module({
   imports: [
-    ConfigModule.forRoot(),
     TelegrafModule.forRootAsync({
       imports: [ConfigModule],
       useClass: BotConfigService,
