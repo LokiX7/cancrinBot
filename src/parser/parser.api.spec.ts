@@ -1,10 +1,10 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { CbrExchangeApi } from './cbr-exchange.api';
-import { HttpService } from '@nestjs/axios';
 import { of } from 'rxjs';
+import { Test, TestingModule } from '@nestjs/testing';
+import { HttpService } from '@nestjs/axios';
+import { ParserApi } from './parser.api';
 
-describe('CbrExchangeApi', () => {
-  let api: CbrExchangeApi;
+describe('ParserApi', () => {
+  let api: ParserApi;
 
   const fakeResponse = {
     data: {
@@ -29,7 +29,7 @@ describe('CbrExchangeApi', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        CbrExchangeApi,
+        ParserApi,
         {
           provide: HttpService,
           useValue: {
@@ -39,7 +39,7 @@ describe('CbrExchangeApi', () => {
       ],
     }).compile();
 
-    api = module.get<CbrExchangeApi>(CbrExchangeApi);
+    api = module.get<ParserApi>(ParserApi);
   });
 
   it('should be defined', () => {

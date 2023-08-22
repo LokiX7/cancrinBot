@@ -5,8 +5,7 @@ import { Repository } from 'typeorm';
 import { CurrencyEntity } from 'src/common/entities/currency.entity';
 import { CurrencyI } from 'src/common/interfaces/currency.interface';
 import { ExchangeDataI } from 'src/common/interfaces/exchangeData.interface';
-import { ExchangeDataFormatter } from './utills/exchange-data.formatter';
-import { CbrExchangeApi } from './cbr-exchange.api';
+import { ParserService } from '../parser/parser.service';
 
 @Injectable()
 export class CbrExchangeService {
@@ -15,14 +14,12 @@ export class CbrExchangeService {
   constructor(
     @InjectRepository(CurrencyEntity)
     private readonly currenciesRepository: Repository<CurrencyEntity>,
-    private readonly apiReq: CbrExchangeApi,
+    private readonly parser: ParserService,
   ) {}
 
   @Cron(CronExpression.MONDAY_TO_FRIDAY_AT_1AM, { timeZone: 'Europe/Moscow' })
   async initExchangeData(): Promise<(CurrencyI & CurrencyEntity)[]> {
-    const response = await this.apiReq.request();
-
-    this.exchangeData = ExchangeDataFormatter.format(response.data);
+    this.exchangeData = await this.parser.getData();
 
     const currenciesArr: CurrencyI[] = [];
 

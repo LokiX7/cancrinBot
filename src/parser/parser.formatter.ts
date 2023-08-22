@@ -1,10 +1,9 @@
 import { ExchangeDataI } from 'src/common/interfaces/exchangeData.interface';
 import { CurrencyI } from 'src/common/interfaces/currency.interface';
-import { RawExchangeDataDto } from '../dto/raw-exchange-data.dto';
-import { race } from 'rxjs';
+import { RawCurrencyDataDto } from './dto/raw-currency-data.dto';
 
-export class ExchangeDataFormatter {
-  public static format(rawExchangeData: RawExchangeDataDto): ExchangeDataI {
+export class ParserDataFormatter {
+  public format(rawExchangeData: RawCurrencyDataDto): ExchangeDataI {
     const { Valute: rawCurrencies, Date: rawDate } = rawExchangeData;
     const formatedExchangeData: ExchangeDataI = {
       date: {
@@ -22,7 +21,7 @@ export class ExchangeDataFormatter {
   }
 
   // eslint-disable-next-line prettier/prettier
-  private static currenciesFromatter(rawCurrencies: RawExchangeDataDto['Valute']): ExchangeDataI['currency'] {
+  private currenciesFromatter(rawCurrencies: RawCurrencyDataDto['Valute']): ExchangeDataI['currency'] {
     const currencies: ExchangeDataI['currency'] = {};
     for (const currency in rawCurrencies) {
       const rawCurrency = rawCurrencies[currency];
@@ -41,7 +40,7 @@ export class ExchangeDataFormatter {
   }
 
   // eslint-disable-next-line prettier/prettier
-  private static dateFormatter(rawDate: RawExchangeDataDto['Date']): ExchangeDataI['date'] {
+  private dateFormatter(rawDate: RawCurrencyDataDto['Date']): ExchangeDataI['date'] {
     const dateInstance = new Date(Date.parse(rawDate));
 
     const rawDay = dateInstance.getDate();

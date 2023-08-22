@@ -1,4 +1,4 @@
-export interface RawExchangeDataDto {
+export interface RawCurrencyDataDto {
   Date: string;
   PreviousDate: string;
   PreviousURL: string;
