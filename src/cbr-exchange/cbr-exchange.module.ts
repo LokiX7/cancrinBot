@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ScheduleModule } from '@nestjs/schedule';
-import { CurrencyEntity } from 'src/common/entities/currency.entity';
+import { ExchangeEntity } from 'src/common/entities/exchange.entity';
 import { ParserModule } from '../parser/parser.module';
 import { CbrExchangeService } from './cbr-exchange.service';
 
@@ -10,7 +10,7 @@ import { CbrExchangeService } from './cbr-exchange.service';
   imports: [
     ParserModule,
     HttpModule,
-    TypeOrmModule.forFeature([CurrencyEntity]),
+    TypeOrmModule.forFeature([ExchangeEntity]),
     ScheduleModule.forRoot(),
   ],
   providers: [CbrExchangeService],

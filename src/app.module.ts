@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CurrencyEntity } from './common/entities/currency.entity';
+import { ExchangeEntity } from './common/entities/exchange.entity';
 import { UnexpectedExceptionsFilter } from './common/filters/unexpected-exceptions.filter';
 import { BotModule } from './bot/bot.module';
 import { AppService } from './app.service';
@@ -11,7 +11,7 @@ import { AppService } from './app.service';
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'cancrin.db',
-      entities: [CurrencyEntity],
+      entities: [ExchangeEntity],
       synchronize: true,
     }),
   ],

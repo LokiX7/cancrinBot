@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { Repository } from 'typeorm';
-import { CurrencyEntity } from 'src/common/entities/currency.entity';
+import { ExchangeEntity } from 'src/common/entities/exchange.entity';
 import { CurrencyI } from 'src/common/interfaces/currency.interface';
 import { ExchangeDataI } from 'src/common/interfaces/exchangeData.interface';
 import { ParserService } from '../parser/parser.service';
@@ -12,13 +12,13 @@ export class CbrExchangeService {
   public exchangeData: undefined | ExchangeDataI;
 
   constructor(
-    @InjectRepository(CurrencyEntity)
-    private readonly currenciesRepository: Repository<CurrencyEntity>,
+    @InjectRepository(ExchangeEntity)
+    private readonly currenciesRepository: Repository<ExchangeEntity>,
     private readonly parser: ParserService,
   ) {}
 
   @Cron(CronExpression.MONDAY_TO_FRIDAY_AT_1AM, { timeZone: 'Europe/Moscow' })
-  async initExchangeData(): Promise<(CurrencyI & CurrencyEntity)[]> {
+  async initExchangeData(): Promise<(CurrencyI & ExchangeEntity)[]> {
     this.exchangeData = await this.parser.getData();
 
     const currenciesArr: CurrencyI[] = [];
