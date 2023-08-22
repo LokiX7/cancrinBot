@@ -5,7 +5,7 @@ export const charCodeValidation = (
   charCode: string,
   exchangeData: ExchangeDataI,
 ): void => {
-  if (!(charCode in exchangeData.valute)) {
+  if (!(charCode in exchangeData.currency)) {
     throw new CharCodeException(charCode);
   }
 };

@@ -12,7 +12,7 @@ describe('CbrExchangeApi', () => {
       PreviousDate: '2023-06-09T11:30:00+03:00',
       PreviousURL: '//www.cbr-xml-daily.ru/archive/2023/06/09/daily_json.js',
       Timestamp: '2023-06-12T18:00:00+03:00',
-      Valute: {
+      Currency: {
         AUD: {
           ID: 'R01010',
           NumCode: '036',

@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 
-@Entity({ name: 'valute' })
-export class ValuteEntity {
+@Entity({ name: 'currency' })
+export class CurrencyEntity {
   @PrimaryColumn()
   charCode: string;
 

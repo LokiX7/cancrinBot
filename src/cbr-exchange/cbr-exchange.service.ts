@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { Repository } from 'typeorm';
-import { ValuteEntity } from 'src/common/entities/valute.entity';
-import { ValuteI } from 'src/common/interfaces/valute.interface';
+import { CurrencyEntity } from 'src/common/entities/currency.entity';
+import { CurrencyI } from 'src/common/interfaces/currency.interface';
 import { ExchangeDataI } from 'src/common/interfaces/exchangeData.interface';
 import { ExchangeDataFormatter } from './utills/exchange-data.formatter';
 import { CbrExchangeApi } from './cbr-exchange.api';
@@ -13,30 +13,30 @@ export class CbrExchangeService {
   public exchangeData: undefined | ExchangeDataI;
 
   constructor(
-    @InjectRepository(ValuteEntity)
-    private readonly valutesRepository: Repository<ValuteEntity>,
+    @InjectRepository(CurrencyEntity)
+    private readonly currenciesRepository: Repository<CurrencyEntity>,
     private readonly apiReq: CbrExchangeApi,
   ) {}
 
   @Cron(CronExpression.MONDAY_TO_FRIDAY_AT_1AM, { timeZone: 'Europe/Moscow' })
-  async initExchangeData(): Promise<(ValuteI & ValuteEntity)[]> {
+  async initExchangeData(): Promise<(CurrencyI & CurrencyEntity)[]> {
     const response = await this.apiReq.request();
 
     this.exchangeData = ExchangeDataFormatter.format(response.data);
 
-    const valutesArr: ValuteI[] = [];
+    const currenciesArr: CurrencyI[] = [];
 
-    for (const valuteCharCode in this.exchangeData.valute) {
-      valutesArr.push(this.exchangeData.valute[valuteCharCode]);
+    for (const currencyCharCode in this.exchangeData.currency) {
+      currenciesArr.push(this.exchangeData.currency[currencyCharCode]);
     }
-    return this.valutesRepository.save(valutesArr);
+    return this.currenciesRepository.save(currenciesArr);
   }
 
-  async getValuteByCharCode(charCode: string): Promise<ValuteI> {
-    return this.valutesRepository.findOneBy({ charCode: charCode });
+  async getCurrencyByCharCode(charCode: string): Promise<CurrencyI> {
+    return this.currenciesRepository.findOneBy({ charCode: charCode });
   }
 
-  async getAllValutes(): Promise<ValuteI[]> {
-    return this.valutesRepository.find({});
+  async getAllCurrencies(): Promise<CurrencyI[]> {
+    return this.currenciesRepository.find({});
   }
 }

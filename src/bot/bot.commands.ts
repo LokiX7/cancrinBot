@@ -9,7 +9,7 @@ export const botCommands = [
       'Список имен и кодов доступных валют.\nНапишите /help [код. например EUR] для запроса полной информации о валюте',
   },
   {
-    command: 'valutes',
+    command: 'currency',
     description: 'Меню выбора курса обмена валют',
   },
   {

@@ -1,4 +1,4 @@
-export interface ValuteI {
+export interface CurrencyI {
   numCode: string;
   charCode: string;
   nominal: number;

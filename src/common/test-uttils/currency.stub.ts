@@ -1,8 +1,8 @@
 import { ExchangeDataI } from '../interfaces/exchangeData.interface';
-import { ValuteI } from '../interfaces/valute.interface';
+import { CurrencyI } from '../interfaces/currency.interface';
 
-export class ValuteStub {
-  fakeValute_AUD: ValuteI = {
+export class Currenciestub {
+  fakeCurrency_AUD: CurrencyI = {
     numCode: '001',
     charCode: 'AUD',
     nominal: 3,
@@ -11,7 +11,7 @@ export class ValuteStub {
     previous: 49.4321,
   };
 
-  fakeValute_EUR: ValuteI = {
+  fakeCurrency_EUR: CurrencyI = {
     numCode: '002',
     charCode: 'EUR',
     nominal: 2,
@@ -20,7 +20,7 @@ export class ValuteStub {
     previous: 29.4321,
   };
 
-  fakeValute_USD: ValuteI = {
+  fakeCurrency_USD: CurrencyI = {
     numCode: '003',
     charCode: 'USD',
     nominal: 1,
@@ -29,10 +29,10 @@ export class ValuteStub {
     previous: 79.4321,
   };
 
-  fakeValutes: ValuteI[] = [
-    this.fakeValute_AUD,
-    this.fakeValute_EUR,
-    this.fakeValute_USD,
+  fakeCurrencies: CurrencyI[] = [
+    this.fakeCurrency_AUD,
+    this.fakeCurrency_EUR,
+    this.fakeCurrency_USD,
   ];
 
   fakeExchangeData: ExchangeDataI = {
@@ -41,10 +41,10 @@ export class ValuteStub {
       month: '01',
       year: '2023',
     },
-    valute: {
-      [this.fakeValute_AUD.charCode]: this.fakeValute_AUD,
-      [this.fakeValute_EUR.charCode]: this.fakeValute_EUR,
-      [this.fakeValute_USD.charCode]: this.fakeValute_USD,
+    currency: {
+      [this.fakeCurrency_AUD.charCode]: this.fakeCurrency_AUD,
+      [this.fakeCurrency_EUR.charCode]: this.fakeCurrency_EUR,
+      [this.fakeCurrency_USD.charCode]: this.fakeCurrency_USD,
     },
   };
 }

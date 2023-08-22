@@ -8,16 +8,19 @@ export class BotButtons {
   constructor(private readonly cbrExchangeService: CbrExchangeService) {}
   startKeyboard() {
     return Markup.inlineKeyboard([
-      Markup.button.callback('Доступные валюты', 'availableValutes'),
+      Markup.button.callback('Доступные валюты', 'availableCurrencies'),
     ]);
   }
 
-  valutesKeyboard() {
+  currenciesKeyboard() {
     const buttons: InlineKeyboardButton.CallbackButton[] = [];
 
-    for (const charCode in this.cbrExchangeService.exchangeData.valute) {
+    for (const charCode in this.cbrExchangeService.exchangeData.currency) {
       buttons.push(
-        Markup.button.callback(`${charCode}`, `getValuteExchange_${charCode}`),
+        Markup.button.callback(
+          `${charCode}`,
+          `getCurrencyExchange_${charCode}`,
+        ),
       );
     }
 

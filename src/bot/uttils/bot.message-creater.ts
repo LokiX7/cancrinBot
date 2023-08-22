@@ -1,28 +1,28 @@
-import { ValuteI } from '../../common/interfaces/valute.interface';
+import { CurrencyI } from '../../common/interfaces/currency.interface';
 
 export class MessageCreater {
-  static createValuteFullDataString(valuteData: ValuteI): string {
+  static createCurrencyFullDataString(currencyData: CurrencyI): string {
     return (
-      `${valuteData.name}` +
-      `\n- <b>Буквенный код</b>: ${valuteData.charCode}` +
-      `\n- <b>Цифровой код</b>: ${valuteData.numCode}` +
-      `\n- <b>Номинал</b>: ${valuteData.nominal}` +
-      `\n- <b>Обменный курс</b>: ${valuteData.value}`
+      `${currencyData.name}` +
+      `\n- <b>Буквенный код</b>: ${currencyData.charCode}` +
+      `\n- <b>Цифровой код</b>: ${currencyData.numCode}` +
+      `\n- <b>Номинал</b>: ${currencyData.nominal}` +
+      `\n- <b>Обменный курс</b>: ${currencyData.value}`
     );
   }
 
-  static createValuteExchangeDataString(valuteData: ValuteI): string {
-    return `${valuteData.name} - ${valuteData.value.toFixed(2)} руб`;
+  static createCurrencyExchangeDataString(currencyData: CurrencyI): string {
+    return `${currencyData.name} - ${currencyData.value.toFixed(2)} руб`;
   }
 
-  static createValutesListString(valutes: ValuteI[]) {
+  static createCurrenciesListString(currencies: CurrencyI[]) {
     let count = 0;
     let message = '';
 
-    for (const valute of valutes) {
+    for (const currency of currencies) {
       count++;
       message = message.concat(
-        `${count}. ${valute.charCode} - ${valute.name}\n`,
+        `${count}. ${currency.charCode} - ${currency.name}\n`,
       );
     }
 

@@ -1,43 +1,43 @@
 import { ExchangeDataI } from 'src/common/interfaces/exchangeData.interface';
-import { ValuteI } from 'src/common/interfaces/valute.interface';
+import { CurrencyI } from 'src/common/interfaces/currency.interface';
 import { RawExchangeDataDto } from '../dto/raw-exchange-data.dto';
+import { race } from 'rxjs';
 
 export class ExchangeDataFormatter {
   public static format(rawExchangeData: RawExchangeDataDto): ExchangeDataI {
-    const { Valute: rawValutes, Date: rawDate } = rawExchangeData;
+    const { Valute: rawCurrencies, Date: rawDate } = rawExchangeData;
     const formatedExchangeData: ExchangeDataI = {
       date: {
         day: '',
         month: '',
         year: '',
       },
-      valute: {},
+      currency: {},
     };
 
     formatedExchangeData.date = this.dateFormatter(rawDate);
-    formatedExchangeData.valute = this.valutesFromatter(rawValutes);
+    formatedExchangeData.currency = this.currenciesFromatter(rawCurrencies);
 
     return formatedExchangeData;
   }
 
   // eslint-disable-next-line prettier/prettier
-  private static valutesFromatter(rawValutes: RawExchangeDataDto['Valute']): ExchangeDataI['valute'] {
-    const valutes: ExchangeDataI['valute'] = {};
-
-    for (const valute in rawValutes) {
-      const rawValute = rawValutes[valute];
-      const formatedValute: ValuteI = {
-        numCode: rawValute.NumCode,
-        charCode: rawValute.CharCode,
-        nominal: rawValute.Nominal,
-        name: rawValute.Name,
-        value: rawValute.Value,
-        previous: rawValute.Previous,
+  private static currenciesFromatter(rawCurrencies: RawExchangeDataDto['Valute']): ExchangeDataI['currency'] {
+    const currencies: ExchangeDataI['currency'] = {};
+    for (const currency in rawCurrencies) {
+      const rawCurrency = rawCurrencies[currency];
+      const formatedCurrency: CurrencyI = {
+        numCode: rawCurrency.NumCode,
+        charCode: rawCurrency.CharCode,
+        nominal: rawCurrency.Nominal,
+        name: rawCurrency.Name,
+        value: rawCurrency.Value,
+        previous: rawCurrency.Previous,
       };
-      valutes[formatedValute.charCode] = formatedValute;
+      currencies[formatedCurrency.charCode] = formatedCurrency;
     }
 
-    return valutes;
+    return currencies;
   }
 
   // eslint-disable-next-line prettier/prettier

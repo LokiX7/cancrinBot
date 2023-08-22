@@ -1,14 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ValuteStub } from '../common/test-uttils/valute.stub';
+import { Currenciestub } from '../common/test-uttils/currency.stub';
 import { CbrExchangeService } from '../cbr-exchange/cbr-exchange.service';
 import { BotService } from './bot.service';
 
 describe('BotService', () => {
   let service: BotService;
-  let valuteStub: ValuteStub;
+  let currenciestub: Currenciestub;
 
   beforeEach(async () => {
-    valuteStub = new ValuteStub();
+    currenciestub = new Currenciestub();
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -16,8 +16,8 @@ describe('BotService', () => {
         {
           provide: CbrExchangeService,
           useValue: {
-            exchangeData: valuteStub.fakeExchangeData,
-            getValuteByCharCode: async () => valuteStub.fakeValute_AUD,
+            exchangeData: currenciestub.fakeExchangeData,
+            getCurrencyByCharCode: async () => currenciestub.fakeCurrency_AUD,
           },
         },
       ],
@@ -30,13 +30,13 @@ describe('BotService', () => {
     expect(service).toBeDefined();
   });
 
-  test('getValute method should return valute', async () => {
+  test('getCurrency method should return currency', async () => {
     // eslint-disable-next-line prettier/prettier
-    expect(await service.getValute(valuteStub.fakeValute_AUD.charCode)).toEqual(valuteStub.fakeValute_AUD);
+    expect(await service.getCurrency(currenciestub.fakeCurrency_AUD.charCode)).toEqual(currenciestub.fakeCurrency_AUD);
   });
 
   test('getLastUpdateDate method should return exchangeData.date', async () => {
     // eslint-disable-next-line prettier/prettier
-    expect(service.getLastUpdateDate()).toStrictEqual(valuteStub.fakeExchangeData.date);
+    expect(service.getLastUpdateDate()).toStrictEqual(currenciestub.fakeExchangeData.date);
   });
 });

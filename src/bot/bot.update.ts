@@ -49,7 +49,7 @@ export class BotUpdate {
     this.deleteMessage(ctx);
 
     await ctx.reply(
-      'Чтобы получить информацию об обмене интересующей вас валюты вы можете выбрать её в меню /valutes или просто написав её код в чат например EUR',
+      'Чтобы получить информацию об обмене интересующей вас валюты вы можете выбрать её в меню /currency или просто написав её код в чат например EUR',
     );
     await ctx.reply(
       'Чтобы получить полную информацию о валюте введите /help [код валюты] например /help EUR',
@@ -58,62 +58,66 @@ export class BotUpdate {
   }
 
   @Hears('/list')
-  async showValutesList(@Ctx() ctx: Context): Promise<void> {
+  async showCurrenciesList(@Ctx() ctx: Context): Promise<void> {
     this.deleteMessage(ctx);
 
-    const valutes = await this.botService.getValutes();
-    await ctx.reply(MessageCreater.createValutesListString(valutes));
+    const currencies = await this.botService.getCurrencies();
+    await ctx.reply(MessageCreater.createCurrenciesListString(currencies));
   }
 
   @Hears(/^\/help ([A-Z][A-Z][A-Z]|[a-z][a-z][a-z])$/)
   @UseFilters(CharCodeExceptionFilter)
   // eslint-disable-next-line prettier/prettier
-  async showValuteData(@Ctx() ctx: Context, @Message('text') message: string): Promise<void> {
+  async showCurrencyData(@Ctx() ctx: Context, @Message('text') message: string): Promise<void> {
     const charCode = message
       .match(/\/help ([A-Z][A-Z][A-Z]|[a-z][a-z][a-z])/)[1]
       .toUpperCase();
 
-    const valute = await this.botService.getValute(charCode);
-    await ctx.replyWithHTML(MessageCreater.createValuteFullDataString(valute));
+    const currency = await this.botService.getCurrency(charCode);
+    await ctx.replyWithHTML(
+      MessageCreater.createCurrencyFullDataString(currency),
+    );
   }
 
   @Hears(/^([A-Z][A-Z][A-Z]|[a-z][a-z][a-z])$/)
   @UseFilters(CharCodeExceptionFilter)
   // eslint-disable-next-line prettier/prettier
-  async showValuteExchange(@Ctx() ctx: Context, @Message('text') message: string): Promise<void> {
+  async showCurrencyExchange(@Ctx() ctx: Context, @Message('text') message: string): Promise<void> {
     const charCode = message
       .match(/([A-Z][A-Z][A-Z]|[a-z][a-z][a-z])/)[0]
       .toUpperCase();
 
-    const valute = await this.botService.getValute(charCode);
-    await ctx.reply(MessageCreater.createValuteExchangeDataString(valute));
+    const currency = await this.botService.getCurrency(charCode);
+    await ctx.reply(MessageCreater.createCurrencyExchangeDataString(currency));
   }
 
-  @Hears('/valutes')
-  async showAvailableValutes(@Ctx() ctx: Context): Promise<void> {
+  @Hears('/currency')
+  async showAvailableCurrencies(@Ctx() ctx: Context): Promise<void> {
     this.deleteMessage(ctx);
     const date = this.botService.getLastUpdateDate();
 
     await ctx.reply(
       `Данные на ${date.day}.${date.month}.${date.year}`,
-      this.botButtons.valutesKeyboard(),
+      this.botButtons.currenciesKeyboard(),
     );
   }
 
-  @Action('availableValutes')
-  async availableValutes(@Ctx() ctx: Context): Promise<void> {
-    await this.showAvailableValutes(ctx);
+  @Action('availableCurrencies')
+  async availableCurrencies(@Ctx() ctx: Context): Promise<void> {
+    await this.showAvailableCurrencies(ctx);
   }
 
-  @Action(/getValuteExchange_[A-Z][A-Z][A-Z]/)
-  async getValuteExchange(@Ctx() ctx: Context): Promise<void> {
+  @Action(/getCurrencyExchange_[A-Z][A-Z][A-Z]/)
+  async getCurrencyExchange(@Ctx() ctx: Context): Promise<void> {
     const data = 'data' in ctx.callbackQuery ? ctx.callbackQuery.data : null;
 
     if (data) {
-      const queryMatch = data.match(/getValuteExchange_([A-Z][A-Z][A-Z])/);
+      const queryMatch = data.match(/getCurrencyExchange_([A-Z][A-Z][A-Z])/);
 
-      const valute = await this.botService.getValute(queryMatch[1]);
-      await ctx.reply(MessageCreater.createValuteExchangeDataString(valute));
+      const currency = await this.botService.getCurrency(queryMatch[1]);
+      await ctx.reply(
+        MessageCreater.createCurrencyExchangeDataString(currency),
+      );
     }
   }
 }

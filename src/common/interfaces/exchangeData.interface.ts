@@ -1,4 +1,4 @@
-import { ValuteI } from './valute.interface';
+import { CurrencyI } from './currency.interface';
 
 export interface ExchangeDataI {
   date: {
@@ -6,7 +6,7 @@ export interface ExchangeDataI {
     month: string;
     year: string;
   };
-  valute: {
-    [charCode: ValuteI['charCode']]: ValuteI;
+  currency: {
+    [charCode: CurrencyI['charCode']]: CurrencyI;
   };
 }

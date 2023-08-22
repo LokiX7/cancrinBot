@@ -1,26 +1,26 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { ValuteI } from '../common/interfaces/valute.interface';
-import { ValuteEntity } from '../common/entities/valute.entity';
-import { ValuteStub } from '../common/test-uttils/valute.stub';
+import { CurrencyI } from '../common/interfaces/currency.interface';
+import { CurrencyEntity } from '../common/entities/currency.entity';
+import { Currenciestub } from '../common/test-uttils/currency.stub';
 import { CbrExchangeApi } from './cbr-exchange.api';
 import { CbrExchangeService } from './cbr-exchange.service';
 import { ExchangeDataFormatter } from './utills/exchange-data.formatter';
 
 describe('CbrExchangeService', () => {
   let service: CbrExchangeService;
-  let valuteStub: ValuteStub;
+  let currenciestub: Currenciestub;
 
   beforeAll(async () => {
-    valuteStub = new ValuteStub();
+    currenciestub = new Currenciestub();
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         CbrExchangeService,
         {
-          provide: getRepositoryToken(ValuteEntity),
+          provide: getRepositoryToken(CurrencyEntity),
           useValue: {
-            save: async (data: ValuteI[]) => data,
+            save: async (data: CurrencyI[]) => data,
           },
         },
         {
@@ -44,9 +44,9 @@ describe('CbrExchangeService', () => {
   test('initExchangeData should init exchangeData ', async () => {
     jest
       .spyOn(ExchangeDataFormatter, 'format')
-      .mockImplementation(() => valuteStub.fakeExchangeData);
+      .mockImplementation(() => currenciestub.fakeExchangeData);
 
-    expect(await service.initExchangeData()).toEqual(valuteStub.fakeValutes);
-    expect(service.exchangeData).toEqual(valuteStub.fakeExchangeData);
+    expect(await service.initExchangeData()).toEqual(currenciestub.fakeCurrencies);
+    expect(service.exchangeData).toEqual(currenciestub.fakeExchangeData);
   });
 });
