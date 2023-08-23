@@ -13,7 +13,7 @@ export class CbrExchangeService {
 
   constructor(
     @InjectRepository(ExchangeEntity)
-    private readonly currenciesRepository: Repository<ExchangeEntity>,
+    private readonly exchangeRepository: Repository<ExchangeEntity>,
     private readonly parser: ParserService,
   ) {}
 
@@ -26,14 +26,14 @@ export class CbrExchangeService {
     for (const currencyCharCode in this.exchangeData.currency) {
       currenciesArr.push(this.exchangeData.currency[currencyCharCode]);
     }
-    return this.currenciesRepository.save(currenciesArr);
+    return this.exchangeRepository.save(currenciesArr);
   }
 
   async getCurrencyByCharCode(charCode: string): Promise<CurrencyI> {
-    return this.currenciesRepository.findOneBy({ charCode: charCode });
+    return this.exchangeRepository.findOneBy({ charCode: charCode });
   }
 
   async getAllCurrencies(): Promise<CurrencyI[]> {
-    return this.currenciesRepository.find({});
+    return this.exchangeRepository.find({});
   }
 }
