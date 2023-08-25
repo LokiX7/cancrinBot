@@ -3,7 +3,7 @@
 
 Telegram бот позволяющий быстро получить актуальные курсы валют от Центрального банка России.
 
-![cancrin](https://github.com/LokiX7/cancrinBot/assets/73707133/ef4686f8-d9af-44b7-9915-e7418f0726b7)
+![cancrin](https://github.com/LokiX7/cancrinBot/assets/73707133/ab32c9c3-afee-4c73-abd5-d08c0e380146)
 
 Особенности
 ---
