@@ -1,73 +1,95 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+**CancrinBot**
+===
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Telegram бот позволяющий быстро получить актуальные курсы валют от Центрального банка России.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+![cancrin](https://github.com/LokiX7/cancrinBot/assets/73707133/ef4686f8-d9af-44b7-9915-e7418f0726b7)
 
-## Description
+Особенности
+---
+  + Простота использования
+  + Встроенный парсер данных которые предоставляет сайт [cbr-xml-daily.ru](https://www.cbr-xml-daily.ru/)
+  + Парсер можно с лёгкостью заменить на другой
+  + Бот сам обновляет данные по будням в 1 час ночи по МСК
+  
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Установка
+---
 
-## Installation
+1. Клонируйте репозиторий
+    ```
+    $ git clone https://github.com/LokiX7/cancrinBot.git
+    ```
+2. Перейдите в папку проекта
+    ```
+    $ cd cancrinBot
+    ```
+3. Установите зависимости
+    ```
+      $ npm install
+    ```
+4. Откройте файл .env.example и установите значения переменных
 
-```bash
-$ npm install
-```
+    `BOT_TOKEN='ваш токен'` - Токен вашего бота который вы получили от BotFather.
+    
+    `BOT_NAME='имя вашего бота'` - Имя вашего бота
+    
+    `DB_NAME='имя базы данных'` - Имя вашей sqlite БД
 
-## Running the app
+    Пример:
 
-```bash
-# development
-$ npm run start
+    ```
+    BOT_TOKEN='0000000000:XXXX0xxx0XXx00xXXx0xxx0XXXxxx00Xxxxxx'
+    BOT_NAME='CancrinBot'
+    DB_NAME='exchange.db'
+    ```
+5. Сохраните файл с переменными как новый файл с именем .env 
 
-# watch mode
-$ npm run start:dev
+6. Запустите бота
+    ```
+    npm run start
+    ```
+Команды бота
+---
 
-# production mode
-$ npm run start:prod
-```
+`/start` - Бот приветствует пользователя и выводит кнопку, показывающую меню доступных валют. (Как при вызове `/curency`)
 
-## Test
+`/curency` - Меню кнопок доступных валют. У каждой кнопки имя это код предоставляемой валюты. Например, AUD, EUR или USD. 
 
-```bash
-# unit tests
-$ npm run test
+Каждая кнопка выводит упрощённую информацию об валюте, например: 
+  > Австралийский доллар - 61.16 руб
 
-# e2e tests
-$ npm run test:e2e
+`/list` - Список всех доступных валют - коды валют и их наименования. Например:
+  >1. AUD - Австралийский доллар
+  >2. AZN - Азербайджанский манат
+  >3. GBP - Фунт стерлингов Соединенного королевства
+  >4. ...
 
-# test coverage
-$ npm run test:cov
-```
+`/help` - Выводит руководство об использовании функционала бота.
 
-## Support
+`/help [код валюты]` - Выводит полную информацию о валюте. Например: `/help aud` выведет:
+  >Австралийский доллар
+   >
+   >\- Буквенный код: AUD
+   >
+   >\- Цифровой код: 036
+   >
+   >\- Номинал: 1
+   >
+   >\- Обменный курс: 61.1622
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Замена парсера
+---
 
-## Stay in touch
+Если вы хотите заменить модуль парсера на другой, ваш service класс должен имплементировать интерфейс ***ParserServiceI***, а именно ваш класс должен реализовать метод ***getData()*** который должен возвращать тип ***ExchangeDataI***. Все необходимые интерфейсы находятся по пути:
+[./src/common/interfaces/](./src/common/interfaces/)
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Изменить время обновления данных
+---
 
-## License
+Если вы хотите чтобы бот обновлял данные в другое время, то установить время и дни вы можете в  файле [./src/cbr-exchange/cbr-exchange.service.ts](./src/cbr-exchange/cbr-exchange.service.ts) в декораторе ***@Cron*** метода ***initExchangeData()*** используя для это специальный синтаксис Cron или enum ***CronExpression***.
 
-Nest is [MIT licensed](LICENSE).
+Связь со мной
+--- 
+
+**Telegram**: @lokixio
