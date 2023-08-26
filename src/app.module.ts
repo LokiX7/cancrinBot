@@ -4,7 +4,6 @@ import { ConfigModule } from '@nestjs/config';
 import { ExchangeEntity } from './common/entities/exchange.entity';
 import { UnexpectedExceptionsFilter } from './common/filters/unexpected-exceptions.filter';
 import { BotModule } from './bot/bot.module';
-import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -19,7 +18,6 @@ import { AppService } from './app.service';
   ],
 
   providers: [
-    AppService,
     {
       provide: 'APP_FILTER',
       useClass: UnexpectedExceptionsFilter,
