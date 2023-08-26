@@ -6,6 +6,8 @@ import { BotService } from './bot.service';
 import { BotUpdate } from './bot.update';
 import { BotConfigService } from './bot.config-service';
 import { BotButtons } from './bot.buttons';
+
+// Модуль бота
 @Module({
   imports: [
     TelegrafModule.forRootAsync({

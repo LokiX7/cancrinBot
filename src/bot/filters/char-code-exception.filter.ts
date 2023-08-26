@@ -3,6 +3,7 @@ import { TelegrafArgumentsHost } from 'nestjs-telegraf';
 import { Context } from 'telegraf';
 import { CharCodeException } from 'src/common/exceptions/char-code.exception';
 
+// Отлавливает исключение CharCodeException, логирует и отправляет ответ клиенту
 @Catch(CharCodeException)
 export class CharCodeExceptionFilter implements ExceptionFilter {
   private readonly logger: Logger = new Logger(CharCodeExceptionFilter.name);

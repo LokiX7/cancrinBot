@@ -2,7 +2,7 @@ export class CharCodeException extends Error {
   charCode: string;
 
   constructor(charCode: string) {
-    super(`${charCode} not a currency char code`);
+    super(`${charCode} не валютный код`);
     this.charCode = charCode;
   }
 }

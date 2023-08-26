@@ -1,6 +1,8 @@
 import { CurrencyI } from '../../common/interfaces/currency.interface';
 
+// Набор статических методов формирующие сообщения для клиента
 export class MessageCreater {
+  // Формирует сообщение содержащее полную информацию о валюте
   static createCurrencyFullDataString(currencyData: CurrencyI): string {
     return (
       `${currencyData.name}` +
@@ -10,11 +12,12 @@ export class MessageCreater {
       `\n- <b>Обменный курс</b>: ${currencyData.value}`
     );
   }
-
+  // Формирует сообщение содержащее упрощённую информацию о валюте
   static createCurrencyExchangeDataString(currencyData: CurrencyI): string {
     return `${currencyData.name} - ${currencyData.value.toFixed(2)} руб`;
   }
 
+  // Формирует сообщение со списком имён валют и их буквенных кодов
   static createCurrenciesListString(currencies: CurrencyI[]) {
     let count = 0;
     let message = '';

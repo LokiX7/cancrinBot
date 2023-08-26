@@ -1,3 +1,4 @@
+// DTO получаемых сырых данных полученных от www.cbr-xml-daily.ru
 export interface RawCurrencyDataDto {
   Date: string;
   PreviousDate: string;

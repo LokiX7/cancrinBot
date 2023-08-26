@@ -1,5 +1,6 @@
 import * as winston from 'winston';
 
+// Конфигурация логгера
 export const winstonOptions = {
   transports: [
     new winston.transports.Console({

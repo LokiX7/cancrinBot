@@ -10,6 +10,7 @@ import { Context } from 'telegraf';
 import { Observable } from 'rxjs';
 import { isAction } from '../guards/is-action.guard';
 
+// Перехватыввет запрос и логирует его
 @Injectable()
 export class UpdateLogInterceptor implements NestInterceptor {
   private readonly logger: Logger = new Logger('Update');
@@ -21,6 +22,7 @@ export class UpdateLogInterceptor implements NestInterceptor {
     // eslint-disable-next-line prettier/prettier
     const TgCtx = TelegrafExecutionContext.create(context).getContext<Context>();
 
+    // Определяет тип запроса и логирует соответствующие данные
     if (isAction(TgCtx)) {
       // eslint-disable-next-line prettier/prettier
       this.logger.debug(`UserID ${TgCtx.callbackQuery.from.id} -> [Action] ${TgCtx.callbackQuery['data']}`);

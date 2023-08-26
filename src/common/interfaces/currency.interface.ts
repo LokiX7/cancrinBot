@@ -1,3 +1,4 @@
+// Интерфейс одной валютной единицы
 export interface CurrencyI {
   numCode: string;
   charCode: string;

@@ -1,6 +1,7 @@
 import { ExchangeDataI } from '../interfaces/exchangeData.interface';
 import { CurrencyI } from '../interfaces/currency.interface';
 
+// Набор заглушек имитирующий валютные данные для unit тестов
 export class Currenciestub {
   fakeCurrency_AUD: CurrencyI = {
     numCode: '001',

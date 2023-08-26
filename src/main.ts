@@ -6,10 +6,12 @@ import { CbrExchangeService } from './cbr-exchange/cbr-exchange.service';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
+  // Создание и внедрение стороннего логгера
   const app = await NestFactory.create(AppModule, {
     logger: WinstonModule.createLogger(winstonOptions),
   });
 
+  // Получить данные при запуске приложения
   await app
     .select(CbrExchangeModule)
     .get(CbrExchangeService)

@@ -6,6 +6,7 @@ import { ExchangeEntity } from 'src/common/entities/exchange.entity';
 import { ParserModule } from '../parser/parser.module';
 import { CbrExchangeService } from './cbr-exchange.service';
 
+// Модуль управления данными
 @Module({
   imports: [
     ParserModule,

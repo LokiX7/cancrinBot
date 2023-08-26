@@ -2,7 +2,9 @@ import { ExchangeDataI } from 'src/common/interfaces/exchangeData.interface';
 import { CurrencyI } from 'src/common/interfaces/currency.interface';
 import { RawCurrencyDataDto } from './dto/raw-currency-data.dto';
 
+// Класс для обработки сырых данных
 export class ParserDataFormatter {
+  // Форматирование всех представленных сырых данных
   public format(rawExchangeData: RawCurrencyDataDto): ExchangeDataI {
     const { Valute: rawCurrencies, Date: rawDate } = rawExchangeData;
     const formatedExchangeData: ExchangeDataI = {
@@ -20,6 +22,7 @@ export class ParserDataFormatter {
     return formatedExchangeData;
   }
 
+  // Форматирование сырых валютных данных
   // eslint-disable-next-line prettier/prettier
   private currenciesFromatter(rawCurrencies: RawCurrencyDataDto['Valute']): ExchangeDataI['currency'] {
     const currencies: ExchangeDataI['currency'] = {};
@@ -39,6 +42,7 @@ export class ParserDataFormatter {
     return currencies;
   }
 
+  // Форматирование сырой даты
   // eslint-disable-next-line prettier/prettier
   private dateFormatter(rawDate: RawCurrencyDataDto['Date']): ExchangeDataI['date'] {
     const dateInstance = new Date(Date.parse(rawDate));

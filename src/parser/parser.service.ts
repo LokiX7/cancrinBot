@@ -4,6 +4,7 @@ import { ParserDataFormatter } from './parser.formatter';
 import { ExchangeDataI } from '../common/interfaces/exchangeData.interface';
 import { ParserServiceI } from '../common/interfaces/parserService.interface';
 
+// Класс интерфейс парсера
 @Injectable()
 export class ParserService implements ParserServiceI {
   constructor(
@@ -11,6 +12,7 @@ export class ParserService implements ParserServiceI {
     private readonly formatter: ParserDataFormatter,
   ) {}
 
+  // Возвращает форматированные данные полученные от API
   async getData(): Promise<ExchangeDataI> {
     const response = await this.api.request();
     const currencyData = this.formatter.format(response.data);
