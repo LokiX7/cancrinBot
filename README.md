@@ -18,7 +18,7 @@ Telegram бот позволяющий быстро получить актуа�
 
 1. Клонируйте репозиторий
     ```
-    $ git clone https://github.com/LokiX7/cancrinBot.git
+    $ git clone https://github.com/al-revenko/cancrinBot
     ```
 2. Перейдите в папку проекта
     ```
